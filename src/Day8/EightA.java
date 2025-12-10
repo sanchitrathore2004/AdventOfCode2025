@@ -1,11 +1,13 @@
+package Day8;
+
 import Day8.DSU;
 
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Vector;
 
-public class Main {
-    static void main () {
+public class EightA {
+    static void solve () {
         Scanner scanner = new Scanner(System.in);
         Vector<Vector<Long>> points = new Vector<>();
         while(scanner.hasNext()){
@@ -38,20 +40,14 @@ public class Main {
             }
         }
         distance.sort((a, b)-> Long.compare(a.get(0), b.get(0)));
-        System.out.println(distance);
         var dsu = new DSU(points.size());
+        int ops=0;
         int i=0;
-        while(i<distance.size()){
+        while(ops<1000){
+            ops++;
             dsu.unionBySize(distance.get(i).get(1), distance.get(i).get(2));
-            if(dsu.fullyConnected()==1){
-                int i1=Math.toIntExact(distance.get(i).get(1));
-                int i2= Math.toIntExact(distance.get(i).get(2));
-                System.out.println(points.get(i1).get(0));
-                System.out.println(points.get(i2).get(0));
-                System.out.println(points.get(i1).get(0)*points.get(i2).get(0));
-                return ;
-            }
             i++;
         }
+        System.out.println(dsu.topThreeSize());
     }
 }
